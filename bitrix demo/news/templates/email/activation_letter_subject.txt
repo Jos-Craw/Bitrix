@@ -1,1 +1,0 @@
-﻿User activation {{ user.username }}
