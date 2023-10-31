@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from .models import Application, AdvUser
 
 def index(request):
-    return HttpResponse("It's Bitrix Helper!!!")
+    apps = Application.objects.all()
+    return render(request, 'helper/index.html',{'apps': apps})
