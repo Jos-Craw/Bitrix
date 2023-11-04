@@ -15,7 +15,6 @@
 			<nav class="nav">
 				<div class="nav-a">
 					{% if user.is_authenticated %}
-					<a href="{% url 'helper:index' %}" class="link">News</a>
 					<a href="{% url 'helper:logout' %}" class="link">Logout</a>
 					{% else %}
 					<a href="{% url 'helper:login' %}" class="link">Login</a>

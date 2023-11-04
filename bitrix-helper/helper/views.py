@@ -17,24 +17,9 @@ def index(request):
     Applications = Application.objects.all()
     return render(request, 'helper/index.html', {'Applications': Applications})
 
-    initial = {'Application': Application.pk}
-    initial['author'] = request.user.username
-    form = form_class(initial=initial)
-    if request.method == 'POST':
-        c_form = form_class(request.POST)
-        if c_form.is_valid():
-            c_form.save()
-        else:
-            form = c_form
-    return render(request, 'helper/index.html', {'Applications': Applications, 'form': form})
-
 
 class POSTLoginView(LoginView):
     template_name = 'helper/login.html'
-
-
-class POSTLogoutView(LoginRequiredMixin, LogoutView):
-    template_name = 'helper/index.html'
 
 
 

@@ -4,7 +4,10 @@
 	{% if user.is_authenticated %}
 		{% if Applications %}
 			{% for app in Applications %}
-				{{app.id}} {{app.num}} {{app.name}} {{app.participants}}
+				{{app.id}} {{app.num}} {{app.name}} <br>
+				{% for participant in app.participants.all %}
+					{{participant}}<br>
+				{% endfor %}
 			{% endfor %}
 		{% endif %}
 	{% else %}
