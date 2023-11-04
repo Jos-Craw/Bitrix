@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.dispatch import Signal
-from .utilities import send_activation_notification
 import os
 from django.core.validators import MaxValueValidator , MinValueValidator
 
@@ -44,14 +42,3 @@ class PriceList(models.Model):
         verbose_name_plural = 'Прайс'
         verbose_name = 'Прайс'
 
-
-
-
-user_registrated = Signal(['instance'])
-
-
-def user_registrated_dispatcher(sender, **kwargs):
-    send_activation_notification(kwargs['instance'])
-
-
-user_registrated.connect(user_registrated_dispatcher)

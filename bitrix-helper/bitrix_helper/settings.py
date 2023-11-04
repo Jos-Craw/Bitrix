@@ -103,6 +103,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGOUT_REDIRECT_URL = ''
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -117,9 +119,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-LOGOUT_REDIRECT_URL='helper:index'
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -131,13 +130,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL ='helper.AdvUser'
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'physicalgramservice@gmail.com'
-EMAIL_HOST_PASSWORD = 'cdenjyzmnepscqoe'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

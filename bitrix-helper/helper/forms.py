@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Application, AdvUser, user_registrated
+from .models import Application, AdvUser
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
@@ -10,23 +10,9 @@ class ApplicationForm(ModelForm):
         model = Application
         fields = '__all__'
 
-
-
-
-class ChangeUserInfoForm(forms.ModelForm):
-    email = forms.EmailField(required=True, label='Email')
-
-    class Meta:
-        model = AdvUser
-        fields = ('username', 'email', 'first_name', 'last_name')
-
-
 class RegisterUserForm(forms.ModelForm):
-    email = forms.EmailField(required=True, label='Email')
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput,
-                                help_text=password_validation.password_validators_help_text_html())
-    password2 = forms.CharField(label='Password(repeat)', widget=forms.PasswordInput,
-                                help_text='Repeat password')
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput,)
+    password2 = forms.CharField(label='Password(repeat)', widget=forms.PasswordInput)
 
     def clean_passwird1(self):
         password1 = self.cleaned_data['password1']
@@ -46,14 +32,13 @@ class RegisterUserForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password1'])
-        user.is_active = False
-        user.is_activated = False
+        user.is_active = True
+        user.is_activated = True
         if commit:
             user.save()
-        user_registrated.send(RegisterUserForm, instance=user)
         return user
 
     class Meta:
         model = AdvUser
-        fields = ('username', 'email', 'password1', 'password2',
+        fields = ('username','department', 'password1', 'password2',
                   'first_name', 'last_name')
