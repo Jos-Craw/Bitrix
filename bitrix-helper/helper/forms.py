@@ -1,14 +1,22 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Application, AdvUser
+from .models import Application, AdvUser, PriceList
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
 
-class ApplicationForm(ModelForm):
+# class ApplicationForm(ModelForm):
+#     class Meta:
+#         model = Application
+#         fields = '__all__'
+
+
+class AddPriceToApplicationForm(ModelForm):
     class Meta:
-        model = Application
-        fields = '__all__'
+        model = PriceList
+        fields = '__all__' 
+
+
 
 class RegisterUserForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput,)

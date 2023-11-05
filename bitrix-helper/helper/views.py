@@ -3,7 +3,7 @@ from .models import Application, AdvUser
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import ApplicationForm, RegisterUserForm
+from .forms import RegisterUserForm ,AddPriceToApplicationForm
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
@@ -14,8 +14,12 @@ from django.core.signing import BadSignature
 
 
 def index(request):
-    Applications = Application.objects.all()
-    return render(request, 'helper/index.html', {'Applications': Applications})
+    Applications = Application.objects.filter(participants=request.user.id)
+    form = AddPriceToApplicationForm(request.POST)
+    if form.is_valid():
+        price = form.save()
+        Applications.pricelist.add(request.price)
+    return render(request, 'helper/index.html', {'Applications': Applications, 'form':form})
 
 
 class POSTLoginView(LoginView):

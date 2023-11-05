@@ -1,14 +1,30 @@
 {% extends "layout/basic.html" %}
 
+{% load bootstrap4 %}
+
 {% block content %}
 	{% if user.is_authenticated %}
+		Ваше имя {{user.username}} <br>
 		{% if Applications %}
-			{% for app in Applications %}
-				{{app.id}} {{app.num}} {{app.name}} <br>
-				{% for participant in app.participants.all %}
-					{{participant}}<br>
+			{% if user.username %}
+				{% for app in Applications %}
+					{{app.id}} {{app.num}} {{app.name}} <br>
+					Участники заявки<br>
+					{% for participant in app.participants.all %}
+						{{participant}}<br>
+					{% endfor %}
+					Пункты прайс листа<br>
+					{% for price in app.pricelist.all %}
+						{{price}}<br>
+					{% endfor %}
+					<form method="post">
+						{% csrf_token %}
+						{% bootstrap_form form layout='horizontal' %}
+						<input type="hidden" name="next" value="{% url 'helper:index' %}">
+						{% buttons submit='add' %}{% endbuttons %}
+					</form>
 				{% endfor %}
-			{% endfor %}
+			{% endif %}	
 		{% endif %}
 	{% else %}
 		Вам нужно войти

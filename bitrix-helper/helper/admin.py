@@ -1,14 +1,14 @@
 from django.contrib import admin
 import datetime
 
-from .models import AdvUser, Application
+from .models import AdvUser, Application, PriceList
 
 
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = ('id','num','name')
     list_display_links = ('num','name',)
     search_fields = ('num','name')
-    fields = ('num','name','comment','participants',)
+    fields = ('num','name','comment','participants','pricelist',)
 
 
 admin.site.register(Application, ApplicationAdmin)
@@ -23,3 +23,14 @@ class AdvUserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(AdvUser, AdvUserAdmin)
+
+
+
+class PriceAdmin(admin.ModelAdmin):
+    list_display = ('id','num','name','comment','department','price')
+    list_display_links = ('name',)
+    search_fields = ('num','name',)
+    fields = ('num','name','comment','department','price',)
+
+
+admin.site.register(PriceList, PriceAdmin)
