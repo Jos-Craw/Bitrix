@@ -11,13 +11,6 @@ from django.core.exceptions import ValidationError
 #         fields = '__all__'
 
 
-class AddPriceToApplicationForm(ModelForm):
-    class Meta:
-        model = PriceList
-        fields = '__all__' 
-
-
-
 class RegisterUserForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput,)
     password2 = forms.CharField(label='Password(repeat)', widget=forms.PasswordInput)

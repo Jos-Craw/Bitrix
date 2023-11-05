@@ -13,19 +13,17 @@
 					{% for participant in app.participants.all %}
 						{{participant}}<br>
 					{% endfor %}
-					Пункты прайс листа<br>
+					Прайс заявки<br>
 					{% for price in app.pricelist.all %}
 						{{price}}<br>
 					{% endfor %}
-					<form method="post">
-						{% csrf_token %}
-						{% bootstrap_form form layout='horizontal' %}
-						<input type="hidden" name="next" value="{% url 'helper:index' %}">
-						{% buttons submit='add' %}{% endbuttons %}
-					</form>
+					Пункты прайслиста<br>
 				{% endfor %}
 			{% endif %}	
 		{% endif %}
+		{% for price in PriceLists %}
+			{{price}}<br>
+		{% endfor %}
 	{% else %}
 		Вам нужно войти
 	{% endif %}
