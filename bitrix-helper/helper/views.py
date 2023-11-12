@@ -18,7 +18,6 @@ def index(request):
         PriceLists = PriceList.objects.filter(department=request.user.department)
         cont = {'Applications': Applications,'PriceLists':PriceLists}
     else: cont = {'Applications': Applications}
-    print(request.user.department)
     # добавить возможность добавления и удаления пункта прайс-листа в/из заявки
     # Добавить информацию счета для заявки (в блокноте и в файле) - изменить модель
     # 
