@@ -12,12 +12,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.core.signing import BadSignature
 
-
 def index(request):
     Applications = Application.objects.filter(participants=request.user.id)
-    PriceLists = PriceList.objects.filter(department=request.user.department)
+    if request.user.is_authenticated:
+        PriceLists = PriceList.objects.filter(department=request.user.department)
+        cont = {'Applications': Applications,'PriceLists':PriceLists}
+    else: cont = {'Applications': Applications}
+    print(request.user.department)
     # добавить возможность добавления и удаления пункта прайс-листа в/из заявки
-    return render(request, 'helper/index.html', {'Applications': Applications,'PriceLists':PriceLists})
+    # Добавить информацию счета для заявки (в блокноте и в файле) - изменить модель
+    # 
+    return render(request, 'helper/index.html', cont)
 
 
 class POSTLoginView(LoginView):
