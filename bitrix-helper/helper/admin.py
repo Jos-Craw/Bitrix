@@ -1,14 +1,14 @@
 from django.contrib import admin
 import datetime
 
-from .models import AdvUser, Application, PriceList
+from .models import AdvUser, Application, PriceListFiz, PriceListUr
 
 
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = ('id','num','name')
     list_display_links = ('num','name',)
     search_fields = ('num','name')
-    fields = ('num','name','comment','participants','pricelist',)
+    fields = ('num','name','comment','participants','pricelistFiz','pricelistUr',)
 
 
 admin.site.register(Application, ApplicationAdmin)
@@ -26,11 +26,20 @@ admin.site.register(AdvUser, AdvUserAdmin)
 
 
 
-class PriceAdmin(admin.ModelAdmin):
-    list_display = ('id','num','name','comment','department','price')
+class PriceAdminFiz(admin.ModelAdmin):
+    list_display = ('id','num','name','time','comment','department','price')
     list_display_links = ('name',)
     search_fields = ('num','name',)
-    fields = ('num','name','comment','department','price',)
+    fields = ('num','name','time','comment','department','price',)
 
 
-admin.site.register(PriceList, PriceAdmin)
+admin.site.register(PriceListFiz, PriceAdminFiz)
+
+class PriceAdminUr(admin.ModelAdmin):
+    list_display = ('id','num','name','ed','comment','department','price','priceNDS')
+    list_display_links = ('name',)
+    search_fields = ('num','name',)
+    fields = ('num','name','ed','comment','department','price','priceNDS',)
+
+
+admin.site.register(PriceListUr, PriceAdminUr)

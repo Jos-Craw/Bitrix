@@ -15,30 +15,52 @@ class AdvUser(AbstractUser):
     class Meta(AbstractUser.Meta):
         pass
 
-class PriceList(models.Model):
+class PriceListFiz(models.Model):
     dep=(
         ('adm','Администратор'),
         ('emp','Группа акустики и ЭМП'),
         )
     num = models.CharField(null=False,blank=False,max_length=50,verbose_name='Номер услуги')
     name = models.TextField(null=True, blank=False,verbose_name='Название услуги')
+    time = models.CharField(null=False,blank=False,max_length=50,verbose_name='Срок выполнения')
     comment = models.TextField(null=True, blank=True,verbose_name='Примечание')
     department = models.CharField(null=True, blank=False, choices=dep,max_length=50, verbose_name='Группа')
-    price = models.FloatField(null=True,blank=False, validators=[MinValueValidator(0)],verbose_name='Стоимость')
+    price = models.FloatField(null=True,blank=False, validators=[MinValueValidator(0)],verbose_name='Цена')
 
     def __str__(self):
         return f'{self.name}'
 
     class Meta:
-        verbose_name_plural = 'Прайс'
-        verbose_name = 'Прайс'
+        verbose_name_plural = 'Прайс физические лица'
+        verbose_name = 'Прайс физические лица'
+
+class PriceListUr(models.Model):
+    dep=(
+        ('adm','Администратор'),
+        ('emp','Группа акустики и ЭМП'),
+        )
+    num = models.CharField(null=False,blank=False,max_length=50,verbose_name='Номер услуги')
+    name = models.TextField(null=True, blank=False,verbose_name='Название услуги')
+    ed = models.CharField(null=False,blank=False,max_length=50,verbose_name='Единица измерения')
+    comment = models.TextField(null=True, blank=True,verbose_name='Примечание')
+    department = models.CharField(null=True, blank=False, choices=dep,max_length=50, verbose_name='Группа')
+    price = models.FloatField(null=True,blank=False, validators=[MinValueValidator(0)],verbose_name='Тариф без НДС')
+    priceNDS = models.FloatField(null=True,blank=False, validators=[MinValueValidator(0)],verbose_name='Тариф с НДС')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name_plural = 'Прайс юридические лица'
+        verbose_name = 'Прайс юридические лица'
 
 class Application(models.Model):
     num = models.CharField(null=False,blank=False,max_length=50,verbose_name='Номер заявки')
     name = models.TextField(null=True, blank=False,verbose_name='Название заявки')
     comment = models.TextField(null=True, blank=False,verbose_name='Примечание')
     participants = models.ManyToManyField(AdvUser,blank=True, verbose_name='Участники')
-    pricelist = models.ManyToManyField(PriceList,blank=True, verbose_name='Пункты прайслиста')
+    pricelistFiz = models.ManyToManyField(PriceListFiz,blank=True, verbose_name='Пункты прайслиста физические лица')
+    pricelistUr = models.ManyToManyField(PriceListUr,blank=True, verbose_name='Пункты прайслиста юридические лица')
 
     def __str__(self):
         return f'{self.name}'
