@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Application, AdvUser, PriceListFiz
+from .models import Application, AdvUser, PriceListFiz, PriceListUr, Department
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -15,8 +15,11 @@ from django.core.signing import BadSignature
 def index(request):
     Applications = Application.objects.filter(participants=request.user.id)
     if request.user.is_authenticated:
-        PriceLists = PriceListFiz.objects.filter(department=request.user.department)
-        cont = {'Applications': Applications,'PriceLists':PriceLists}
+        print(request.user.username)
+        print(request.user.department)
+        # PriceLists1 = PriceListFiz.objects.filter(department=request.user.department)
+        # PriceLists2 = PriceListUr.objects.filter(department=request.user.department)
+        cont = {'Applications': Applications,'PriceLists1':PriceLists1,'PriceLists2':PriceLists2}
     else: cont = {'Applications': Applications}
     # добавить возможность добавления и удаления пункта прайс-листа в/из заявки
     # Добавить информацию счета для заявки (в блокноте и в файле) - изменить модель
