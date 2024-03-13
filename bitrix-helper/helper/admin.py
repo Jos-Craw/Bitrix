@@ -1,18 +1,26 @@
 from django.contrib import admin
 import datetime
 
-from .models import AdvUser, Application, PriceListFiz, PriceListUr, Department
+from .models import AdvUser, Applicationf, Applicationu, PriceListFiz, PriceListUr, Department
 
 
-class ApplicationAdmin(admin.ModelAdmin):
+class ApplicationfAdmin(admin.ModelAdmin):
     list_display = ('id','num','name')
     list_display_links = ('num','name',)
     search_fields = ('num','name')
-    fields = ('num','name','comment','participants','pricelistFiz','pricelistUr',)
+    fields = ('num','name','comment','participants','pricelistFiz',)
 
 
-admin.site.register(Application, ApplicationAdmin)
+admin.site.register(Applicationf, ApplicationfAdmin)
 
+class ApplicationuAdmin(admin.ModelAdmin):
+    list_display = ('id','num','name')
+    list_display_links = ('num','name',)
+    search_fields = ('num','name')
+    fields = ('num','name','comment','participants','pricelistUr',)
+
+
+admin.site.register(Applicationu, ApplicationuAdmin)
 
 
 class AdvUserAdmin(admin.ModelAdmin):

@@ -29,6 +29,7 @@ header{
   flex-direction: row;
   margin-top: 20px;
   color: #fffcff;
+  flex-grow: 2;
 }
 .nav{
   font-size: 30%;
@@ -50,6 +51,9 @@ section{
   flex-direction: column;
   width: 50%;
   font-size: 30%;
+  backdrop-filter: = blur(10px);
+  background: rgba(150, 150, 150, 0.15);
+  border-radius: 20px;
 }
 .test{
 }
