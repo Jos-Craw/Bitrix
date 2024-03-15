@@ -11,6 +11,7 @@ from django.contrib.auth.views import LoginView, PasswordChangeView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.core.signing import BadSignature
+from docxtpl import DocxTemplate
 
 def index(request):
     return render(request, 'helper/index.html')
@@ -33,6 +34,10 @@ def fiz(request):
     if request.user.is_authenticated:
         PriceListsf = PriceListFiz.objects.filter(department=request.user.department)
         cont = {'Applicationsf': Applicationsf,'PriceListsf':PriceListsf}
+        doc = DocxTemplate("helper/price.docx")
+        print(list(PriceListsf)[1])
+        doc.render({'a': str(list(PriceListsf)[1])}) #вывод документа в helper, пока один
+        doc.save('helper/p1.docx')
     else: cont = {'Applicationsf': Applicationsf}
     return render(request, 'helper/fiz.html',cont)
 
