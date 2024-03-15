@@ -13,17 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.signing import BadSignature
 
 def index(request):
-    Applicationsf = Applicationf.objects.filter(participants=request.user.id)
-    Applicationsu = Applicationu.objects.filter(participants=request.user.id)
-    if request.user.is_authenticated:
-        PriceListsf = PriceListFiz.objects.filter(department=request.user.department)
-        PriceListsu = PriceListUr.objects.filter(department=request.user.department)
-        cont = {'Applicationsf': Applicationsf,'Applicationsu': Applicationsu,'PriceListsf':PriceListsf,'PriceListsu':PriceListsu}
-    else: cont = {'Applicationsf': Applicationsf,'Applicationsu': Applicationsu,}
-    # добавить возможность добавления и удаления пункта прайс-листа в/из заявки
-    # Добавить информацию счета для заявки (в блокноте и в файле) - изменить модель
-    # 
-    return render(request, 'helper/index.html', cont)
+    return render(request, 'helper/index.html')
 
 
 class POSTLoginView(LoginView):
@@ -36,3 +26,20 @@ class RegisterUserView(CreateView):
     template_name = 'helper/register_user.html'
     form_class = RegisterUserForm
     success_url = reverse_lazy('helper:index')
+
+
+def fiz(request):
+    Applicationsf = Applicationf.objects.filter(participants=request.user.id)
+    if request.user.is_authenticated:
+        PriceListsf = PriceListFiz.objects.filter(department=request.user.department)
+        cont = {'Applicationsf': Applicationsf,'PriceListsf':PriceListsf}
+    else: cont = {'Applicationsf': Applicationsf}
+    return render(request, 'helper/fiz.html',cont)
+
+def ur(request):
+    Applicationsu = Applicationu.objects.filter(participants=request.user.id)
+    if request.user.is_authenticated:
+        PriceListsu = PriceListUr.objects.filter(department=request.user.department)
+        cont = {'Applicationsu': Applicationsu,'PriceListsu':PriceListsu}
+    else: cont = {'Applicationsu': Applicationsu,}
+    return render(request, 'helper/ur.html',cont)

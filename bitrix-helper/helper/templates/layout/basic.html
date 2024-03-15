@@ -18,6 +18,9 @@
 						{% if user.is_superuser %}
 							<a href="{% url 'admin:index' %}" class="link">admin</a>
 						{% endif %}
+						<a href="{% url 'helper:index' %} " class="link">Главная</a>
+						<a href="{% url 'helper:fiz' %}" class="link">Физические</a>
+						<a href="{% url 'helper:ur' %}" class="link">Юридические</a>
 						<a href="{% url 'helper:logout' %}" class="link">Logout</a>
 					{% else %}
 						<a href="{% url 'helper:login' %}" class="link">Login</a>

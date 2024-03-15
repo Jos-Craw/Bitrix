@@ -6,54 +6,6 @@
 	{% if user.is_authenticated %}
 		Ваше имя {{user.username}} <br>
 		Ваша группа {{user.department}} <br>
-		----ЗАЯВКИ Ф.Л----<br>
-		{% if Applicationsf %}
-			{% if user.username %}
-				{% for app in Applicationsf %}
-					{{app.num}} {{app.name}} <br>
-					Участники заявки<br>
-					{% for participant in app.participants.all %}
-						{{participant}}<br>
-					{% endfor %}
-					Прайс заявки<br>
-					{% for price in PriceListsf %}
-						{% if price in app.pricelistFiz.all %}
-							{{price.num}} - {{price.name}}<br>
-						{% endif %}
-					{% endfor %}
-					Пункты прайслиста<br>
-					{% for price in PriceListsf %}
-						{% if price not in app.pricelistFiz.all %}
-							{{price.num}} - {{price.name}}<br>
-						{% endif %}
-					{% endfor %}					
-				{% endfor %}
-			{% endif %}	
-		{% endif %}
-		----ЗАЯВКИ Ю.Л----<br>
-		{% if Applicationsu %}
-			{% if user.username %}
-				{% for app in Applicationsu %}
-					{{app.num}} {{app.name}} <br>
-					Участники заявки<br>
-					{% for participant in app.participants.all %}
-						{{participant}}<br>
-					{% endfor %}
-					Прайс заявки<br>
-					{% for price in PriceListsu %}
-						{% if price in app.pricelistUr.all %}
-							{{price.num}} - {{price.name}}<br>
-						{% endif %}
-					{% endfor %}
-					Пункты прайслиста<br>
-					{% for price in PriceListsu %}
-						{% if price not in app.pricelistUr.all %}
-							{{price.num}} - {{price.name}}<br>
-						{% endif %}
-					{% endfor %}					
-				{% endfor %}
-			{% endif %}	
-		{% endif %}
 	{% else %}
 		Вам нужно войти
 	{% endif %}
