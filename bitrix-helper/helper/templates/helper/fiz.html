@@ -10,23 +10,27 @@
 		{% if Applicationsf %}
 			{% if user.username %}
 				{% for app in Applicationsf %}
-					{{app.num}} {{app.name}} <br>
-					Участники заявки<br>
-					{% for participant in app.participants.all %}
-						{{participant}}<br>
-					{% endfor %}
-					Прайс заявки<br>
-					{% for price in PriceListsf %}
-						{% if price in app.pricelistFiz.all %}
-							{{price.num}} - {{price.name}}<br>
-						{% endif %}
-					{% endfor %}
-					Пункты прайслиста<br>
-					{% for price in PriceListsf %}
-						{% if price not in app.pricelistFiz.all %}
-							{{price.num}} - {{price.name}}<br>
-						{% endif %}
-					{% endfor %}					
+					<details>
+						<summary class="link">{{app.num}} {{app.name}}</summary>
+						<p>
+							Участники заявки
+							{% for participant in app.participants.all %}
+								{{participant}}<br>
+							{% endfor %}
+							Прайс заявки<br>
+							{% for price in PriceListsf %}
+								{% if price in app.pricelistFiz.all %}
+									{{price.num}} - {{price.name}}<br>
+								{% endif %}
+							{% endfor %}
+							Пункты прайслиста<br>
+							{% for price in PriceListsf %}
+								{% if price not in app.pricelistFiz.all %}
+									{{price.num}} - {{price.name}}<br>
+								{% endif %}
+							{% endfor %}
+						</p>
+					</details>
 				{% endfor %}
 			{% endif %}	
 		{% endif %}
