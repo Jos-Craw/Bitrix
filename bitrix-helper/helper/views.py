@@ -35,7 +35,6 @@ def fiz(request):
         PriceListsf = PriceListFiz.objects.filter(department=request.user.department)
         cont = {'Applicationsf': Applicationsf,'PriceListsf':PriceListsf}
         doc = DocxTemplate("helper/price.docx")
-        print(list(PriceListsf)[1])
         doc.render({'a': str(list(PriceListsf)[1])}) #вывод документа в helper, пока один
         doc.save('helper/p1.docx')
     else: cont = {'Applicationsf': Applicationsf}
@@ -48,3 +47,18 @@ def ur(request):
         cont = {'Applicationsu': Applicationsu,'PriceListsu':PriceListsu}
     else: cont = {'Applicationsu': Applicationsu,}
     return render(request, 'helper/ur.html',cont)
+
+def app_datail_fiz(request, pk):
+    Applicationsf = Applicationf.objects.filter(participants=request.user.id)
+    messageSent = False
+    app_f = get_object_or_404(Applicationsf, pk=pk)
+    PriceListsf = PriceListFiz.objects.filter(department=request.user.department)
+    return render(request, 'helper/app_detail_fiz.html', {'app_f': app_f,'PriceListsf':PriceListsf})
+
+
+def app_datail_ur(request, pk):
+    Applicationsu = Applicationu.objects.filter(participants=request.user.id)
+    messageSent = False
+    app_u = get_object_or_404(Applicationsu, pk=pk)
+    PriceListsu = PriceListUr.objects.filter(department=request.user.department)
+    return render(request, 'helper/app_detail_ur.html', {'app_u': app_u,'PriceListsu':PriceListsu})

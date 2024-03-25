@@ -6,31 +6,11 @@
 	{% if user.is_authenticated %}
 		Ваше имя {{user.username}} <br>
 		Ваша группа {{user.department}} <br>
-		----ЗАЯВКИ Ф.Л----<br>
+		----ЗАЯВКИ Ф.Л.----<br>
 		{% if Applicationsf %}
 			{% if user.username %}
 				{% for app in Applicationsf %}
-					<details>
-						<summary class="link">{{app.num}} {{app.name}}</summary>
-						<p>
-							Участники заявки
-							{% for participant in app.participants.all %}
-								{{participant}}<br>
-							{% endfor %}
-							Прайс заявки<br>
-							{% for price in PriceListsf %}
-								{% if price in app.pricelistFiz.all %}
-									{{price.num}} - {{price.name}}<br>
-								{% endif %}
-							{% endfor %}
-							Пункты прайслиста<br>
-							{% for price in PriceListsf %}
-								{% if price not in app.pricelistFiz.all %}
-									{{price.num}} - {{price.name}}<br>
-								{% endif %}
-							{% endfor %}
-						</p>
-					</details>
+					<a href="{% url 'helper:app_datail_fiz' pk=app.pk %}" class="link">{{app.num}} {{app.name}}</a>
 				{% endfor %}
 			{% endif %}	
 		{% endif %}

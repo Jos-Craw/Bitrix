@@ -1,0 +1,27 @@
+{% extends "layout/basic.html" %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+	{% if user.is_authenticated %}
+		{{app_f.num}} {{app_f.name}}<br>
+		Участники заявки<br>
+		{% for participant in app_f.participants.all %}
+			{{participant}}<br>
+		{% endfor %}
+		Прайс заявки<br>
+		{% for price in PriceListsf %}
+			{% if price in app_f.pricelistFiz.all %}
+				{{price.num}} - {{price.name}}<br>
+			{% endif %}
+		{% endfor %}
+		Пункты прайслиста<br>
+		{% for price in PriceListsf %}
+			{% if price not in app_f.pricelistFiz.all %}
+				{{price.num}} - {{price.name}}<br>
+			{% endif %}
+		{% endfor %}				
+	{% else %}
+		Вам нужно войти
+	{% endif %}
+{% endblock %}
