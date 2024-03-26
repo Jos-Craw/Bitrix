@@ -5,19 +5,19 @@ from .models import AdvUser, Applicationf, Applicationu, PriceListFiz, PriceList
 
 
 class ApplicationfAdmin(admin.ModelAdmin):
-    list_display = ('id','num','name')
+    list_display = ('id','num','name','is_active')
     list_display_links = ('num','name',)
     search_fields = ('num','name')
-    fields = ('num','name','comment','participants','pricelistFiz',)
+    fields = ('num','name','comment','participants','pricelistFiz','is_active',)
 
 
 admin.site.register(Applicationf, ApplicationfAdmin)
 
 class ApplicationuAdmin(admin.ModelAdmin):
-    list_display = ('id','num','name')
+    list_display = ('id','num','name','is_active')
     list_display_links = ('num','name',)
     search_fields = ('num','name')
-    fields = ('num','name','comment','participants','pricelistUr',)
+    fields = ('num','name','comment','participants','pricelistUr','is_active',)
 
 
 admin.site.register(Applicationu, ApplicationuAdmin)
@@ -44,10 +44,10 @@ class PriceAdminFiz(admin.ModelAdmin):
 admin.site.register(PriceListFiz, PriceAdminFiz)
 
 class PriceAdminUr(admin.ModelAdmin):
-    list_display = ('id','num','name','ed','comment','price','priceNDS')
+    list_display = ('id','num','name','ed','comment','price_first','priceNDS_first','price_next','priceNDS_next')
     list_display_links = ('name',)
     search_fields = ('num','name',)
-    fields = ('num','name','ed','comment','department','price','priceNDS',)
+    fields = ('num','name','ed','comment','department','price_first','priceNDS_first','price_next','priceNDS_next',)
 
 
 admin.site.register(PriceListUr, PriceAdminUr)

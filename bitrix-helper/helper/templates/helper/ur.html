@@ -10,7 +10,9 @@
 		{% if Applicationsu %}
 			{% if user.username %}
 				{% for app in Applicationsu %}
-					<a href="{% url 'helper:app_datail_ur' pk=app.pk %}" class="link">{{app.num}} {{app.name}}</a>
+					{% if app.is_active == True %}
+						<a href="{% url 'helper:app_datail_ur' pk=app.pk %}" class="link">{{app.num}} {{app.name}}</a>
+					{% endif %}
 				{% endfor %}
 			{% endif %}	
 		{% endif %}

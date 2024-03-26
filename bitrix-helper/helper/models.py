@@ -57,8 +57,10 @@ class PriceListUr(models.Model):
     comment = models.TextField(null=True, blank=True,verbose_name='Примечание')
     department = models.ForeignKey(Department,null=True,blank=True, verbose_name='Группа/отдел',on_delete = models.CASCADE)
     section = models.CharField(null=True, blank=False, choices=sec,max_length=50, verbose_name='Раздел')
-    price = models.FloatField(null=True,blank=False, validators=[MinValueValidator(0)],verbose_name='Тариф без НДС')
-    priceNDS = models.FloatField(null=True,blank=False, validators=[MinValueValidator(0)],verbose_name='Тариф с НДС')
+    price_first = models.FloatField(null=True,blank=False, validators=[MinValueValidator(0)],verbose_name='Тариф без НДС - единичное')
+    priceNDS_first = models.FloatField(null=True,blank=False, validators=[MinValueValidator(0)],verbose_name='Тариф с НДС - единичное')
+    price_next = models.FloatField(null=True,blank=False, validators=[MinValueValidator(0)],verbose_name='Тариф без НДС - последующее')
+    priceNDS_next = models.FloatField(null=True,blank=False, validators=[MinValueValidator(0)],verbose_name='Тариф с НДС - последующее')
 
     def __str__(self):
         return f'{self.num,self.name}'
@@ -73,6 +75,7 @@ class Applicationf(models.Model):
     comment = models.TextField(null=True, blank=False,verbose_name='Примечание')
     participants = models.ManyToManyField(AdvUser,blank=True, verbose_name='Участники')
     pricelistFiz = models.ManyToManyField(PriceListFiz,blank=True, verbose_name='Пункты прайслиста физические лица')
+    is_active = models.BooleanField(default=True, db_index=True,verbose_name='Активная заявка')
 
     def __str__(self):
         return f'{self.name}'
@@ -88,6 +91,7 @@ class Applicationu(models.Model):
     comment = models.TextField(null=True, blank=False,verbose_name='Примечание')
     participants = models.ManyToManyField(AdvUser,blank=True, verbose_name='Участники')
     pricelistUr = models.ManyToManyField(PriceListUr,blank=True, verbose_name='Пункты прайслиста физические лица')
+    is_active = models.BooleanField(default=True, db_index=True,verbose_name='Активная заявка')
 
     def __str__(self):
         return f'{self.name}'

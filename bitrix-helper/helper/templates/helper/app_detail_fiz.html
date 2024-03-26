@@ -12,15 +12,29 @@
 		Прайс заявки<br>
 		{% for price in PriceListsf %}
 			{% if price in app_f.pricelistFiz.all %}
-				{{price.num}} - {{price.name}}<br>
+				<form method="POST">
+					{{price.num}} - {{price.name}}
+					{% csrf_token %}
+					<input type="hidden" name="item_id" value={{price.id}}>
+  					<input type="submit" value="delete" name="delete"/>
+				</form>
 			{% endif %}
 		{% endfor %}
 		Пункты прайслиста<br>
 		{% for price in PriceListsf %}
 			{% if price not in app_f.pricelistFiz.all %}
-				{{price.num}} - {{price.name}}<br>
+				<form method="POST">
+					{{price.num}} - {{price.name}}
+					{% csrf_token %}
+					<input type="hidden" name="item_id" value={{price.id}}>
+  					<input type="submit" value="add" name="add"/>
+				</form>
 			{% endif %}
-		{% endfor %}				
+		{% endfor %}
+		<form method="POST">
+			{% csrf_token %}
+  			<input type="submit" value="Создать файл" name="create_doc"/>
+		</form>				
 	{% else %}
 		Вам нужно войти
 	{% endif %}
