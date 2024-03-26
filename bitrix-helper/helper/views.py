@@ -47,9 +47,14 @@ def app_datail_fiz(request, pk):
         price_id = request.POST.get('item_id')
         app_f.pricelistFiz.add(list(PriceListsf)[int(price_id)-1])
     if request.POST.get('create_doc'):
+        s=''
+        for price in app_f.pricelistFiz.all():
+            s+=str(price.id)+' '+str(price.num)+' '+str(price.name)+' '+str(price.price)+'\n'
+        print(s)
         doc = DocxTemplate("helper/price.docx")
-        doc.render({'a': str(list(PriceListsf)[1])}) #отредактироваить вывод и вообще его сделать
-        doc.save('helper/p1.docx')
+        doc.render({'a': s})
+        save=str(app_f.num)
+        doc.save('helper/docx/'+save+'.docx')
     return render(request, 'helper/app_detail_fiz.html', {'app_f': app_f,'PriceListsf':PriceListsf})
 
 
@@ -64,7 +69,12 @@ def app_datail_ur(request, pk):
         price_id = request.POST.get('item_id')
         app_u.pricelistUr.add(list(PriceListsu)[int(price_id)-1])
     if request.POST.get('create_doc'):
+        s=''
+        for price in app_u.pricelistUr.all():
+            s+=str(price.id)+' '+str(price.num)+' '+str(price.name)+' '+str(price.price_first)+'\n'
+        print(s)
         doc = DocxTemplate("helper/price.docx")
-        doc.render({'a': str(list(PriceListsf)[1])}) #отредактироваить вывод и вообще его сделать
-        doc.save('helper/p2.docx')
+        doc.render({'a': s})
+        save=str(app_u.num)
+        doc.save('helper/docx/'+save+'.docx')
     return render(request, 'helper/app_detail_ur.html', {'app_u': app_u,'PriceListsu':PriceListsu})
