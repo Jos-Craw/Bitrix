@@ -11,6 +11,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.core.signing import BadSignature
 from docxtpl import DocxTemplate
+from django.http import HttpResponse
+import os
+
 
 def index(request):
     return render(request, 'helper/index.html')
@@ -54,7 +57,13 @@ def app_datail_fiz(request, pk):
         doc = DocxTemplate("helper/price.docx")
         doc.render({'a': s})
         save=str(app_f.num)
-        doc.save('helper/docx/'+save+'.docx')
+        file_path = 'helper/docx/'+save+'.docx'
+        doc.save(file_path)
+        with open(file_path, 'rb') as f:
+            file_data = f.read()
+        response = HttpResponse(file_data, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+        response['Content-Disposition'] = f'attachment; filename="{save}"'
+        return response
     return render(request, 'helper/app_detail_fiz.html', {'app_f': app_f,'PriceListsf':PriceListsf})
 
 
@@ -76,5 +85,11 @@ def app_datail_ur(request, pk):
         doc = DocxTemplate("helper/price.docx")
         doc.render({'a': s})
         save=str(app_u.num)
-        doc.save('helper/docx/'+save+'.docx')
+        file_path = 'helper/docx/'+save+'.docx'
+        doc.save(file_path)
+        with open(file_path, 'rb') as f:
+            file_data = f.read()
+        response = HttpResponse(file_data, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+        response['Content-Disposition'] = f'attachment; filename="{save}"'
+        return response
     return render(request, 'helper/app_detail_ur.html', {'app_u': app_u,'PriceListsu':PriceListsu})
